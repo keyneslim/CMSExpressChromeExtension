@@ -1,22 +1,24 @@
 {
-	"name": "Screenshot Extension",
-	"version": "1.0",
-	"description": "A simple screenshot extension",
-	"background": {
-		"persistent": false,
-		"matches" : ["*://*.google.com/*"],
-		"scripts": [ "jquery.min.js", "background.js"]
-	},
-	"content_scripts": [
-		{
-			"js": [ "jquery.min.js", "content.js"],
-			"matches" : ["*://*.google.com/*"]
-		}
-	],
-	"browser_action": {
-		"default_icon": "camera.png",
-		"default_title": "Screenshot"
-	},
-	"permissions": ["tabs", "<all_urls>", "activeTab"],
-	"manifest_version": 2
+    "name": "Screenshot Extension",
+    "version": "1.0",
+    "description": "A simple screenshot extension",
+    "background": {
+        "persistent": false,
+        "matches": ["<all_urls>"],
+        "scripts": ["jquery.min.js", "background.js"],
+        "run_at": "document_end"
+    },
+    "content_scripts": [{
+        "js": ["jquery.min.js", "content.js"],
+        "matches": ["<all_urls>"],
+        "run_at": "document_idle"
+    }],
+    "browser_action": {
+        "default_icon": "camera.png",
+        "default_title": "Screenshot"
+    },
+    "permissions": ["tabs", "<all_urls>", "activeTab", "http://*/",
+        "https://*/"
+    ],
+    "manifest_version": 2
 }
