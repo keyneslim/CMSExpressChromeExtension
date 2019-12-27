@@ -55,19 +55,54 @@ var screenshot = {
     initTest: function() {}
 };
 
-chrome.tabs.onSelectionChanged.addListener(function(tabId, changeInfo, tab) {
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete') {
 
-        var codeToRun = `
-		var someText = "Hello, World!";
-		$('#SIvCob').append("<button> Testing </button>");
-		`;
+        // var codeToRun = `
+        // var someText = "Hello, World!";
+        // $('#SIvCob').append("<button> Testing </button>");
+        // `;
+        // MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+        // var observer = new MutationObserver(function(mutations, observer) {
+        //     // fired when a mutation occurs
+        //     // console.log(mutations, observer);
+
+        //     // ...
+        // });
+
+        // // define what element should be observed by the observer
+        // // and what types of mutations trigger the callback
+        // observer.observe(document, {
+        //     subtree: true,
+        //     attributes: true,
+        //     childList: true
+        // });
         chrome.tabs.sendMessage(tabId, { ready: "ready" }, function(response) {
             console.log(response);
         });
-        injectScriptCode(codeToRun, null);
+        injectScriptCode('testTheAddDom()');
     }
 })
+
+chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+    if (msg.function === "updateDom") {
+        // $("#J_Header").append("<button> Testing </button>");
+        // $(".table").live('DOMNodeInserted', function(e) {
+        console.log('the updated dom : ', msg.element.html());
+        // });
+        // var ArrayToReturn = [];
+        // var count = 0;
+        // $('#J_OrderList').children().each(function(index, element) {
+        //     count = count + 1;
+        //     ArrayToReturn.push($(this).html());
+        // })
+        // sendResponse(ArrayToReturn);
+
+    }
+
+});
+
 
 function injectScriptCode(sCode, callback) {
     callback = callback || function() {};
