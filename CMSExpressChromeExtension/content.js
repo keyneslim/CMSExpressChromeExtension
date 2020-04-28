@@ -10,7 +10,8 @@ chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
             count = count + 1;
             ArrayToReturn.push($(this).attr('id'));
             var name = $(this).find('.item-basic-info a').attr('title');
-            $(this).find('.td-op .td-inner').append(`<button class="buttonClick" data-id=${name}> Testing </button>`);
+            var image = $(this).find('.J_GoldReport img').attr('src');
+            $(this).find('.td-op .td-inner').append(`<button class="buttonClick" data-id=${name} image-url=${image}> 添加到包裹 </button>`);
             // chrome.tabs.sendMessage(tabId, { function: "updateDom", element: ($this) }, function(response) {});
         })
         sendResponse(ArrayToReturn);
@@ -21,8 +22,11 @@ chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
 
 $(document).ready(function() {
     $("body").on('click', '.buttonClick', function() {
-        var id = $(this).attr('data-id');
-        alert(id);
+        var productName = $(this).attr('data-id');
+        var productImage = $(this).attr('image-url');
+        // alert(`${productName} and ${productImage}`);
+        // alert(`https://cmexpress.my/addProduct.php?productName=${productName}&productImage=${productImage}`);
+        location.replace(`https://cmexpress.my/addProduct.php?productName=${encodeURI(productName)}&productImage=${productImage}`);
     });
 });
 
@@ -31,5 +35,5 @@ testingAlarm() = function() {
 }
 
 testTheAddDom = function() {
-    $("#J_Header").append("<button> Testing </button>");
+    $("#J_Header").append("<button> 添加到包裹 </button>");
 }

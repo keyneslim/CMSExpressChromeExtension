@@ -1,23 +1,24 @@
 {
-    "name": "Screenshot Extension",
-    "version": "1.0",
-    "description": "A simple screenshot extension",
-    "background": {
-        "persistent": false,
-        "matches": ["<all_urls>"],
-        "scripts": ["jquery.min.js", "background.js"],
-        "run_at": "document_end"
-    },
-    "content_scripts": [{
-        "js": ["jquery.min.js", "content.js"],
-        "matches": ["<all_urls>"]
-    }],
-    "browser_action": {
-        "default_icon": "camera.png",
-        "default_title": "Screenshot"
-    },
-    "permissions": ["tabs", "<all_urls>", "activeTab", "http://*/",
-        "https://*/"
-    ],
-    "manifest_version": 2
+  "name": "CMExpress",
+  "version": "1.0",
+  "description": "CMExpress Extension allow user to quick add item to CMExpress Courier Helper",
+  "background": {
+    "persistent": false,
+    "matches": ["<all_urls>"],
+    "scripts": ["jquery.min.js", "background.js"],
+    "run_at": "document_end"
+  },
+  "content_scripts": [
+    {
+      "js": ["jquery.min.js", "content.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "Icon.png",
+    "default_title": "CMExpress",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["tabs", "<all_urls>", "activeTab", "http://*/", "https://*/"],
+  "manifest_version": 2
 }
